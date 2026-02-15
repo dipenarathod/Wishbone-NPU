@@ -10,26 +10,26 @@ Use work.tensor_operations_dense.All;
 --Revised address for tensors B, C, and R to allow addressing for the new 100x100 tensors (2500 words)
 Entity wb_peripheral_top Is
 	Generic (
-		BASE_ADDRESS                                 : Std_ulogic_vector(31 Downto 0) := x"90000000"; --peripheral base (informational)
-		TENSOR_A_BASE                                : Std_ulogic_vector(31 Downto 0) := x"90001000"; --A window base
-		TENSOR_B_BASE                                : Std_ulogic_vector(31 Downto 0) := x"90004000"; --B window base
-		TENSOR_C_BASE                                : Std_ulogic_vector(31 Downto 0) := x"90007000"; --C window base
-		TENSOR_R_BASE                                : Std_ulogic_vector(31 Downto 0) := x"9000A000"; --R window base
-		CTRL_REG_ADDRESS                             : Std_ulogic_vector(31 Downto 0) := x"90000008"; --[0]=start, [5:1]=opcode
-		STATUS_REG_ADDRESS                           : Std_ulogic_vector(31 Downto 0) := x"9000000C"; --[0]=busy, [1]=done (sticky)
-		DIM_REG_ADDRESS                              : Std_ulogic_vector(31 Downto 0) := x"90000010"; --N (LSB 8 bits)
-		POOL_BASE_INDEX_ADDRESS                      : Std_ulogic_vector(31 Downto 0) := x"90000014"; --top-left index in A
-		R_OUT_INDEX_ADDRESS                          : Std_ulogic_vector(31 Downto 0) := x"90000018"; --out index in R
-		WORD_INDEX_ADDRESS                           : Std_ulogic_vector(31 Downto 0) := x"9000001C"; --word index for tensor indexing
-		SUM_REG_ADDRESS                              : Std_ulogic_vector(31 Downto 0) := x"90000020"; --Softmax sum parameter (write-only)
-		SOFTMAX_MODE_ADDRESS                         : Std_ulogic_vector(31 Downto 0) := x"90000024"; --Softmax mode: 0=EXP, 1=DIV
-		WEIGHT_BASE_INDEX_ADDRESS                    : Std_ulogic_vector(31 Downto 0) := x"90000028"; --Dense: weight base index in B
-		BIAS_INDEX_ADDRESS                           : Std_ulogic_vector(31 Downto 0) := x"9000002C"; --Dense: bias word index in C
-		N_INPUTS_ADDRESS                             : Std_ulogic_vector(31 Downto 0) := x"90000030"; --Dense: number of inputs N
-		SCALE_REG_ADDRESS                            : Std_ulogic_vector(31 Downto 0) := x"90000034"; --Scale register
-		ZERO_POINT_REG_ADDRESS                       : Std_ulogic_vector(31 Downto 0) := x"9000003C"; --Zero-point register
-		QUANTIZED_MULTIPLIER_REG_ADDRESS             : Std_ulogic_vector(31 Downto 0) := x"90000040"; --Quantized multiplier
-		QUANTIZED_MULTIPLIER_RIGHT_SHIFT_REG_ADDRESS : Std_ulogic_vector(31 Downto 0) := x"90000044" --Right shift for Quantized multiplier
+		BASE_ADDRESS              : Std_ulogic_vector(31 Downto 0) := x"90000000"; --peripheral base (informational)
+		TENSOR_A_BASE             : Std_ulogic_vector(31 Downto 0) := x"90001000"; --A window base
+		TENSOR_B_BASE             : Std_ulogic_vector(31 Downto 0) := x"90004000"; --B window base
+		TENSOR_C_BASE             : Std_ulogic_vector(31 Downto 0) := x"90007000"; --C window base
+		TENSOR_R_BASE             : Std_ulogic_vector(31 Downto 0) := x"9000A000"; --R window base
+		CTRL_REG_ADDRESS          : Std_ulogic_vector(31 Downto 0) := x"90000008"; --[0]=start, [5:1]=opcode
+		STATUS_REG_ADDRESS        : Std_ulogic_vector(31 Downto 0) := x"9000000C"; --[0]=busy, [1]=done (sticky)
+		DIM_REG_ADDRESS           : Std_ulogic_vector(31 Downto 0) := x"90000010"; --N (LSB 8 bits)
+		POOL_BASE_INDEX_ADDRESS   : Std_ulogic_vector(31 Downto 0) := x"90000014"; --top-left index in A
+		R_OUT_INDEX_ADDRESS       : Std_ulogic_vector(31 Downto 0) := x"90000018"; --out index in R
+		WORD_INDEX_ADDRESS        : Std_ulogic_vector(31 Downto 0) := x"9000001C"; --word index for tensor indexing
+		SUM_REG_ADDRESS           : Std_ulogic_vector(31 Downto 0) := x"90000020"; --Softmax sum parameter (write-only)
+		SOFTMAX_MODE_ADDRESS      : Std_ulogic_vector(31 Downto 0) := x"90000024"; --Softmax mode: 0=EXP, 1=DIV
+		WEIGHT_BASE_INDEX_ADDRESS : Std_ulogic_vector(31 Downto 0) := x"90000028"; --Dense: weight base index in B
+		BIAS_INDEX_ADDRESS        : Std_ulogic_vector(31 Downto 0) := x"9000002C"; --Dense: bias word index in C
+		N_INPUTS_ADDRESS          : Std_ulogic_vector(31 Downto 0) := x"90000030"; --Dense: number of inputs N
+		SCALE_REG_ADDRESS         : Std_ulogic_vector(31 Downto 0) := x"90000034"; --Scale register
+		ZERO_POINT_REG_ADDRESS    : Std_ulogic_vector(31 Downto 0) := x"9000003C"; --Zero-point register
+		QUANTIZED_MULTIPLIER_REG_ADDRESS    : Std_ulogic_vector(31 Downto 0) := x"90000040";  --Quantized multiplier
+		QUANTIZED_MULTIPLIER_RIGHT_SHIFT_REG_ADDRESS    : Std_ulogic_vector(31 Downto 0) := x"90000044"  --Right shift for Quantized multiplier
 	);
 	Port (
 		clk        : In  Std_ulogic; --system clock
@@ -148,6 +148,7 @@ Architecture rtl Of wb_peripheral_top Is
 	Signal mac_counter : unsigned(15 Downto 0) := (Others => '0'); --MAC loop counter
 	Signal accumulator : signed(31 Downto 0) := (Others => '0'); --32-bit accumulator
 	Signal bias_val_reg : signed(31 Downto 0) := (Others => '0'); --bias value
+	Signal prod	:	signed(63 downto 0);	--Intermediate product from dense_requantize
 	Signal dense_result : signed(7 Downto 0) := (Others => '0'); --final dense result
 
 	--Dense fast path registers (packed 4x int8 per cycle)
@@ -166,16 +167,16 @@ Architecture rtl Of wb_peripheral_top Is
 	Signal byte_sel_lat : unsigned(1 Downto 0) := (Others => '0'); --latch variant for byte_sel
 
 	--Quantization helper registers
-	Signal scale : Std_ulogic_vector(31 Downto 0) := (Others => '0');
-	Signal zero_point : Std_ulogic_vector(31 Downto 0) := (Others => '0');
-	Signal quantized_multiplier : Std_ulogic_vector(31 Downto 0) := (Others => '0'); --(lhs_scale * rhs_scale / result_scale) from GEMMlowp's equation 5 is a real number. This multiplier register holds the quanztized version of the real multipler
-	Signal quantized_multiplier_right_shift : Std_ulogic_vector(31 Downto 0) := (Others => '0'); --right shifs required to convert quantized multiplier to the real multiplier
-
-	Signal scale_lat : signed(31 Downto 0) := (Others => '0'); --scale latched
-	Signal zero_point_lat : signed(31 Downto 0) := (Others => '0'); --zero point value latched
-	Signal quantized_multiplier_lat : signed(31 Downto 0) := (Others => '0'); --quantized multipier latched
-	Signal quantized_multiplier_right_shift_lat : unsigned(7 Downto 0) := (Others => '0'); --right shift latched
-
+	Signal scale : std_ulogic_vector(31 downto 0) := (Others => '0');
+	Signal zero_point : std_ulogic_vector(31 downto 0) := (Others => '0');
+	Signal quantized_multiplier : std_ulogic_vector(31 downto 0) := (Others => '0'); --(lhs_scale * rhs_scale / result_scale) from GEMMlowp's equation 5 is a real number. This multiplier register holds the quanztized version of the real multipler
+	Signal quantized_multiplier_right_shift : std_ulogic_vector(31 downto 0) := (Others => '0'); --right shifs required to convert quantized multiplier to the real multiplier
+	
+	Signal scale_lat : signed(31 downto 0) := (Others => '0'); --scale latched
+	Signal zero_point_lat : signed(31 downto 0) := (Others => '0'); --zero point value latched
+	Signal quantized_multiplier_lat : signed(31 downto 0) := (Others => '0'); --quantized multipier latched
+	Signal quantized_multiplier_right_shift_lat : unsigned(7 downto 0) := (Others => '0'); --right shift latched
+	
 	--Address helper: translate byte address to word offset within a tensor window
 	Function get_tensor_offset(addr, base : Std_ulogic_vector(31 Downto 0)) Return Natural Is
 		Variable offset : unsigned(31 Downto 0);
@@ -325,8 +326,8 @@ Begin
 					Elsif (i_wb_addr = QUANTIZED_MULTIPLIER_RIGHT_SHIFT_REG_ADDRESS) Then
 						is_valid := '1';
 						reg_rdata <= (Others => '0'); --write-only from Ada, so read register is filled with 0s							
-
-						--Tensor windows are valid only when idle (npu_busy='0')
+					
+					--Tensor windows are valid only when idle (npu_busy='0')
 					Elsif (unsigned(i_wb_addr) >= unsigned(TENSOR_A_BASE) And
 						unsigned(i_wb_addr) < unsigned(TENSOR_A_BASE) + to_unsigned(TENSOR_BYTES, 32)) Then
 						is_valid := '1';
@@ -463,7 +464,7 @@ Begin
 		Variable lanes_u : unsigned(15 Downto 0); --lanes_i but unsigned
 		--lanes help calculate how many inputs and weights for a neuron can be calculated
 		Variable next_count : unsigned(15 Downto 0); --number of inputs left to be processed. Helps with deciding if we want to continue with mac state or if we can add
-		Variable prod : signed(63 Downto 0); --Intermediate product from dense_requantize
+		--Variable prod	:	signed(63 downto 0);	--Intermediate product from dense_requantize
 		--the bias
 		--also, new value for mac_counter
 	Begin
@@ -506,11 +507,12 @@ Begin
 				tensor_A_npu_addr <= (Others => '0');
 				tensor_B_npu_addr <= (Others => '0');
 				tensor_C_npu_addr <= (Others => '0');
-
+				
 				scale_lat <= (Others => '0');
 				zero_point_lat <= (Others => '0');
 				quantized_multiplier_lat <= (Others => '0');
 				quantized_multiplier_right_shift_lat <= (Others => '0');
+				prod <= (Others => '0');
 
 			Else
 				pool_dim_we <= '0';
@@ -539,8 +541,8 @@ Begin
 						scale_lat <= signed(scale);
 						zero_point_lat <= signed(zero_point);
 						quantized_multiplier_lat <= signed(quantized_multiplier);
-						quantized_multiplier_right_shift_lat <= unsigned(quantized_multiplier_right_shift (7 Downto 0));
-
+						quantized_multiplier_right_shift_lat <= unsigned(quantized_multiplier_right_shift (7 downto 0));
+						
 						read_index <= (Others => '0');
 						state <= S_OP_CODE_BRANCH;
 
@@ -747,10 +749,10 @@ Begin
 					When S_DENSE_BIAS_PRODUCT =>
 						--Add bias and saturate to Q0.7 range
 						--dense_result <= dense_add_bias_and_saturate(accumulator, bias_val_reg);
-						prod := dense_requantize_product(accumulator, bias_val_reg, quantized_multiplier_lat);
+						prod <= dense_requantize_product(accumulator, bias_val_reg, quantized_multiplier_lat);
 						state <= S_DENSE_BIAS_CLAMP;
 					When S_DENSE_BIAS_CLAMP =>
-						dense_result <= dense_requantize_clamp(prod, quantized_multiplier_right_shift_lat);
+						dense_result <= dense_requantize_clamp(prod,quantized_multiplier_right_shift_lat);
 						state <= S_DENSE_WRITE;
 
 					When S_DENSE_WRITE =>
