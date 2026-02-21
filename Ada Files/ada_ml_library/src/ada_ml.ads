@@ -40,13 +40,13 @@ package Ada_Ml is
    System'To_Address
     (16#90000044#); --Quantized multiplier right shift register
   ABASE_Addr                                : constant System.Address :=
-   System'To_Address (16#90001000#); --Tensor A address
+   System'To_Address (16#90000600#); --Tensor A address
   BBASE_Addr                                : constant System.Address :=
-   System'To_Address (16#90004000#); --Tensor B address
+   System'To_Address (16#90002D10#); --Tensor B address
   CBASE_Addr                                : constant System.Address :=
-   System'To_Address (16#90007000#); --Tensor C address
+   System'To_Address (16#9000B9B0#); --Tensor C address
   RBASE_Addr                                : constant System.Address :=
-   System'To_Address (16#9000A000#); --Tensor R(result) address
+   System'To_Address (16#9000D8F0#); --Tensor R(result) address
 
   --Opcodes
   --00 and 01 are reserved for add/sub, which are not used
