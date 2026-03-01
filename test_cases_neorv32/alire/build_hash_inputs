@@ -1,7 +1,0 @@
-dependency:ada_ml_library=0.1.0-dev=881d3e7665aaf2676c595aa127a9061ccf18c0b40cec210ab561c51ef9ddaf09
-dependency:bare_runtime=14.0.0=282b01b920f0d5bb2bac604ac6d9e811f26d175144bc99af963e0381e797ee94
-dependency:neorv32_hal=0.1.0-dev=d36e1db83406462dbc11cde4b1e27b79c2272ed906d51adb47d890d471eaff39
-external:LIBRARY_TYPE=default
-external:TEST_CASES_NEORV32_LIBRARY_TYPE=default
-profile:test_cases_neorv32=DEVELOPMENT
-switches:test_cases_neorv32=-Og,-fdata-sections,-ffunction-sections,-g,-gnatVa,-gnatW8,-gnatw.X,-gnatwa,-gnaty-d,-gnaty3,-gnatyA,-gnatyB,-gnatyI,-gnatyO,-gnatyS,-gnatya,-gnatyb,-gnatyc,-gnatye,-gnatyf,-gnatyh,-gnatyi,-gnatyk,-gnatyl,-gnatym,-gnatyn,-gnatyp,-gnatyr,-gnatyt,-gnatyu,-gnatyx
