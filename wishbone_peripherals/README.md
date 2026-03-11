@@ -1,4 +1,12 @@
 All peripherals are clients. All listed items build on the one listed below:
+- wb_optimized_copy_R_to_A_conv2D_Dipen:
+  --The activation function (states) + pooling function (states) are optimized to handle looping via state transitions.
+  --Multi-input and output channel conv2d added.
+  --Dense requantization + clamping was broken into two states to meet timing requirements.
+  --Conv uses dense functions (and intermediate variables) where possible. Renamed variables to make more sense (but can be improved)
+  --Added Copy R to A for faster copying of result ot input tensor (had to modify the BRAM read/write processes for A and R)
+  --Revised NPU result write procedure
+  --TODO: optimize dense + make the pooling states use the same base A index as others to make everything uniform.
 - wb_larger_tensors: 10KB for Inputs, 36KB for weights, 8KB for biases, 10KB for output
 - wb_dense: Added Dense
 - wb_softmax: Added SoftMax
