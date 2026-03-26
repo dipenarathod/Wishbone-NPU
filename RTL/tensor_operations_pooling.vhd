@@ -3,7 +3,7 @@ Use ieee.std_logic_1164.All;
 Use ieee.numeric_std.All;
 
 Library work;
-Use work.tensor_operations_basic_arithmetic.All; --MAX_DIM cap and tensor_mem_type layout [packed 4x int8/word]
+Use work.tensor_operations_base.All; --MAX_DIM cap and tensor_mem_type layout [packed 4x int8/word]
 
 Package tensor_operations_pooling Is
 	--5-bit opcodes (used by CTRL[5:1]) to select pooling mode in the peripheral
