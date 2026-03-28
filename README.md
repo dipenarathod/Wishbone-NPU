@@ -15,12 +15,13 @@ Developed as a capstone project at Penn State, sponsored by [AdaCore](https://ww
 2. Supported Operations
 3. Repository Structure
 4. End-to-end Workflow
-5. Quickstart
-6. Using the NPU in Your Own Design
-7. Video Guides
-8. Related Repositories
-9. Contributing
-10. Acknowledgments
+5. Dependencies
+6. Quickstart
+7. Using the NPU in Your Own Design
+8. Video Guides
+9. Related Repositories
+10. Contributing
+11. Acknowledgments
 
 ## Architecture
 
