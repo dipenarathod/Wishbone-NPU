@@ -10,6 +10,18 @@ Developed as a capstone project at Penn State, sponsored by [AdaCore](https://ww
 
 ---
 
+## Outline
+1. Architecture
+2. Supported Operations
+3. Repository Structure
+4. End-to-end Workflow
+5. Quickstart
+6. Using the NPU in Your Own Design
+7. Video Guides
+8. Related Repositories
+9. Contributing
+10. Acknowledgments
+
 ## Architecture
 
 The system is organized into three layers. The application never touches hardware directly — the firmware layer translates high-level calls into register operations, and the NPU executes them in hardware.
@@ -177,6 +189,17 @@ The NPU peripheral in [`RTL/`](RTL/) is a self-contained Wishbone B4 slave with 
 See [`RTL/README.md`](RTL/README.md) for the register map and [`Ada Files/README.md`](Ada%20Files/README.md) for the exact access patterns in code.
 
 ---
+
+## Video Guides
+- **[Video Playlist showing how to connect the NPU to the NEORV32 in Lattice Diamond](https://www.youtube.com/playlist?list=PLTuulhiizN0IWdHwq5sg6dwhZwYaWbUX5)**
+
+## Related Repositories
+- **[Specific NEORV32 Fork](https://github.com/GNAT-Academic-Program/neorv32-setups)** - The Ada HAL as on 28th March 2026 only works with this fork of the NEORV32. Please refer to Part 1 of the video guide for installation instructions
+- **[NEORV32-HAL](https://github.com/GNAT-Academic-Program/neorv32-hal)** - Base library required to run any Ada Program on the NEORV32
+- **[Input-Output Helper Library](https://github.com/dipenarathod/Input-Output-Helper-Library-for-NEORV32-Ada-Projects)** - Required by the NPU Ada library (Ada_ML_Library) in folder Ada files
+- **[Wishbone Camera Controller for OV5640](https://github.com/dipenarathod/Wishbone-Camera-Controller-for-OV5640/tree/main)** - Wishbone Peripheral used to interface the Waveshare OV5640 Camera (Version C) with the NEORV32
+- **[Wishbone Interconnect 1 Master 2 Slaves](https://github.com/dipenarathod/Wishbone-Interconnect-1-Master-2-Slaves)** - Wishbone Interconnect to connect 2 Wishbone Peripherals to a Master. Video in the repository shows how to connect the NEORV32 (controller) to the camera controller and the NPU (2 slaves)
+
 
 ## Contributing
 
