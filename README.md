@@ -217,5 +217,5 @@ Contributions are welcome — especially ports to new FPGA boards and new NPU op
 - **[AdaCore](https://www.adacore.com/)** — industry sponsor; project mentor Oliver Henley
 - **[NEORV32](https://github.com/stnolting/neorv32)** by Stephan Nolting — the RISC-V soft-core processor
 - **[GNAT Academic Program](https://github.com/GNAT-Academic-Program/neorv32-setups)** — NEORV32 + Ada integration
-- **[GEMMLowp Quantization/Requantization Guide] (https://github.com/google/gemmlowp/blob/master/doc/quantization.md)** — Quantization/Requantization Guide
+- **[GEMMLowp Quantization/Requantization Guide](https://github.com/google/gemmlowp/blob/master/doc/quantization.md)** — Quantization/Requantization Guide
 - **Penn State University** — Capstone course, instructor/advisor Naseem Ibrahim
