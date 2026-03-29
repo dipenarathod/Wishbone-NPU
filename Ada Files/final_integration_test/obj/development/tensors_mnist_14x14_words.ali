@@ -1,0 +1,91 @@
+V "GNAT Lib v14"
+A -Og
+A -O3
+A -gnatA
+A --RTS=/home/dipen/.local/share/alire/builds/bare_runtime_14.0.0_095db6f0/282b01b920f0d5bb2bac604ac6d9e811f26d175144bc99af963e0381e797ee94/
+A -mabi=ilp32
+A -ffunction-sections
+A -fdata-sections
+A -g
+A -gnatwa
+A -gnatw.X
+A -gnatVa
+A -gnaty3
+A -gnatya
+A -gnatyA
+A -gnatyB
+A -gnatyb
+A -gnatyc
+A -gnaty-
+A -gnatyd
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyI
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyO
+A -gnatyp
+A -gnatyr
+A -gnatyS
+A -gnatyt
+A -gnatyu
+A -gnatyx
+A -gnatW8
+A -gnat2022
+A -gnatn
+A -misa-spec=20191213
+A -march=rv32i_zicsr_zifencei
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U tensors_mnist_14x14_words%s  tensors_mnist_14x14_words.ads  bd6f92a4 NE OO PK IL
+W input_output_helper%s	input_output_helper.adb	input_output_helper.ali
+
+D input_output_helper.ads  20260226062952 e32e24f3 input_output_helper%s
+D interfac.ads		20250921045803 9111f9c1 interfaces%s
+D system.ads		20250921045803 28e4acdd system%s
+D s-atacco.ads		20250921045803 5868e3ba system.address_to_access_conversions%s
+D s-stoele.ads		20250921045803 ccded4e8 system.storage_elements%s
+D tensors_mnist_14x14_words.ads  20260226074843 5e41b657 tensors_mnist_14x14_words%s
+G a e
+X 1 input_output_helper.ads
+6K9*Input_Output_Helper 89e24 6|1w6 1r31
+14M12*Word{2|81M9}
+21A9*Word_Array(14M12)<integer> 6|9r43 30r40 45r43 624r40 663r43 5274r40
+. 5345r43 5860r40 5899r43 5926r40
+X 2 interfac.ads
+81M9*Unsigned_32
+X 6 tensors_mnist_14x14_words.ads
+3K9*tensors_mnist_14x14_words 5932l5 5932e30
+5i1*layer_3_conv2d_4_WZP{integer}
+6i1*layer_3_conv2d_4_Quantized_Multiplier{integer}
+7i1*layer_3_conv2d_4_Quantized_Right_Shift{integer}
+9a1*layer_3_conv2d_4_Weights_Words{1|21A9}
+30a1*layer_3_conv2d_4_Bias_Words{1|21A9}
+41i1*layer_6_conv2d_5_WZP{integer}
+42i1*layer_6_conv2d_5_Quantized_Multiplier{integer}
+43i1*layer_6_conv2d_5_Quantized_Right_Shift{integer}
+45a1*layer_6_conv2d_5_Weights_Words{1|21A9}
+624a1*layer_6_conv2d_5_Bias_Words{1|21A9}
+659i1*layer_9_conv2d_6_WZP{integer}
+660i1*layer_9_conv2d_6_Quantized_Multiplier{integer}
+661i1*layer_9_conv2d_6_Quantized_Right_Shift{integer}
+663a1*layer_9_conv2d_6_Weights_Words{1|21A9}
+5274a1*layer_9_conv2d_6_Bias_Words{1|21A9}
+5341i1*layer_16_dense_2_WZP{integer}
+5342i1*layer_16_dense_2_Quantized_Multiplier{integer}
+5343i1*layer_16_dense_2_Quantized_Right_Shift{integer}
+5345a1*layer_16_dense_2_Weights_Words{1|21A9}
+5860a1*layer_16_dense_2_Bias_Words{1|21A9}
+5895i1*layer_19_dense_3_WZP{integer}
+5896i1*layer_19_dense_3_Quantized_Multiplier{integer}
+5897i1*layer_19_dense_3_Quantized_Right_Shift{integer}
+5899a1*layer_19_dense_3_Weights_Words{1|21A9}
+5926a1*layer_19_dense_3_Bias_Words{1|21A9}
+
