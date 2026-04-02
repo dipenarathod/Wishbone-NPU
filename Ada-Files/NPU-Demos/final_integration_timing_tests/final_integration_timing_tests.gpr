@@ -1,0 +1,33 @@
+with "config/final_integration_timing_tests_config.gpr";
+with "bare_runtime.gpr";
+with "neorv32_hal.gpr";
+with "wb_npu_helper.gpr";
+with "wb_ov5640_helper.gpr";
+project Final_Integration_Timing_Tests is
+
+   for Target use "riscv64-elf";
+   for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
+
+   for Source_Dirs use ("src/", "config/");
+   for Object_Dir use "obj/" & Final_Integration_Timing_Tests_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("final_integration_timing_tests.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use Final_Integration_Timing_Tests_Config.Ada_Compiler_Switches & ("-gnat2022", "-gnatn", "-O3");
+   end Compiler;
+
+   package Linker is
+      for Switches ("Ada") use ("-T", Neorv32_Hal'Project_Dir & "/src/link.ld");
+   end Linker;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+end Final_Integration_Timing_Tests;
