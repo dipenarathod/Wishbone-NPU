@@ -10,7 +10,7 @@ The core driver library that wraps the NPU's memory-mapped registers into clean 
 
 | Child Package | Responsibility |
 |---------------|----------------|
-| 'Wb_Npu_Address_Map' | Modify this file to specify the addresses used for registers/tensors in the NPU |
+| `Wb_Npu_Address_Map` | Modify this file to specify the addresses used for registers/tensors in the NPU |
 | `Wb_Npu_Helper.Dense` | Dense-layer driver loops, weight/bias sequencing, requantization |
 | `Wb_Npu_Helper.Activation` | ReLU, Sigmoid, and SoftMax application loops |
 | `Wb_Npu_Helper.Pooling` | 2×2 max and average pooling loops |
