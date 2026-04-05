@@ -1,0 +1,21 @@
+name = "npu_layer_worst_case_timings"
+description = "Independent worst-case timing measurements per NPU layer (NEORV32 + Wishbone NPU)"
+version = "0.1.0-dev"
+
+authors = ["Dylan S"]
+maintainers = ["Dylan S <dylan.t.stock@gmail.com>"]
+maintainers-logins = ["dylan stock"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = []
+
+[[depends-on]]
+neorv32_hal = "*"
+bare_runtime = "*"
+wb_npu_helper = "*"
+input_output_helper = "*"
+
+[[pins]]
+neorv32_hal = { path = ".." }
+wb_npu_helper = { path = "../../NPU-Library/wb_npu_helper" }
+input_output_helper = { path = "../input_output_helper" }

@@ -1,0 +1,29 @@
+--  Configuration for npu_layer_worst_case_timings
+with "bare_runtime.gpr";
+with "input_output_helper.gpr";
+with "neorv32_hal.gpr";
+with "wb_npu_helper.gpr";
+abstract project Npu_Layer_Worst_Case_Timings_Config is
+   Crate_Version := "0.1.0-dev";
+   Crate_Name := "npu_layer_worst_case_timings";
+
+   Alire_Host_OS := "linux";
+   Alire_Host_Arch := "x86_64";
+   Alire_Host_Distro := "ubuntu";
+   Ada_Compiler_Switches := External_As_List ("ADAFLAGS", " ");
+   Ada_Compiler_Switches := Ada_Compiler_Switches &
+          (
+            "-Og",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-g",
+            "-gnatwa",
+            "-gnatw.X",
+            "-gnatVa",
+            "-gnatW8"
+          );
+
+   type Build_Profile_Kind is ("release", "validation", "development");
+   Build_Profile : Build_Profile_Kind := "development";
+
+end Npu_Layer_Worst_Case_Timings_Config;
