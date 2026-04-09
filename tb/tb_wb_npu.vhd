@@ -188,30 +188,28 @@ Begin
 		wb_write(ZERO_POINT_REG_ADDRESS, x"00000000");
 		wb_write(QUANTIZED_MULTIPLIER_REG_ADDRESS, x"40000000");
 		wb_write(QUANTIZED_MULTIPLIER_RIGHT_SHIFT_REG_ADDRESS, x"00000000");
-		wb_write(SUM_REG_ADDRESS, x"00000000");
-		wb_write(SOFTMAX_MODE_ADDRESS, x"00000000");
 
 		--2x2 MaxPool worst case
 		wb_write(DIM_REG_ADDRESS, Std_ulogic_vector(to_unsigned(POOL_TENSOR_SIDE_LEN, 32)));
 		wb_write(POOL_BASE_INDEX_ADDRESS, x"00000000");
 		wb_write(R_OUT_INDEX_ADDRESS, x"00000000");
-		start_and_time("MAXPOOL", OP_MAXPOOL);
+		start_and_time("MaxPool", OP_MAXPOOL);
 
 		--2x2 AvgPool worst case
 		wb_write(DIM_REG_ADDRESS, Std_ulogic_vector(to_unsigned(POOL_TENSOR_SIDE_LEN, 32)));
 		wb_write(POOL_BASE_INDEX_ADDRESS, x"00000000");
 		wb_write(R_OUT_INDEX_ADDRESS, x"00000000");
-		start_and_time("AVGPOOL", OP_AVGPOOL);
+		start_and_time("AvgPool", OP_AVGPOOL);
 
 		--ReLU worst-case
 		wb_write(WORD_INDEX_ADDRESS, x"00000000");
 		wb_write(N_INPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(TENSOR_A_WORDS, 32)));
-		start_and_time("RELU", OP_RELU);
+		start_and_time("ReLU", OP_RELU);
 
 		--Sigmoid worst-case
 		wb_write(WORD_INDEX_ADDRESS, x"00000000");
 		wb_write(N_INPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(TENSOR_A_WORDS, 32)));
-		start_and_time("SIGMOID", OP_SIGMOID);
+		start_and_time("Sigmoid", OP_SIGMOID);
 
 		--Dense worst-case
 		wb_write(WORD_INDEX_ADDRESS, x"00000000");
@@ -220,7 +218,7 @@ Begin
 		wb_write(R_OUT_INDEX_ADDRESS, x"00000000");
 		wb_write(N_INPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(DENSE_INPUTS, 32)));
 		wb_write(N_OUTPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(DENSE_NEURONS, 32)));
-		start_and_time("DENSE", OP_DENSE);
+		start_and_time("Dense", OP_DENSE);
 
 		--Conv2D worst-case
 		wb_write(DIM_REG_ADDRESS, Std_ulogic_vector(to_unsigned(CONV_TENSOR_SIDE_LEN, 32)));
@@ -230,7 +228,7 @@ Begin
 		wb_write(R_OUT_INDEX_ADDRESS, x"00000000");
 		wb_write(N_INPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(CONV_Input_Channels, 32)));
 		wb_write(N_OUTPUTS_ADDRESS, Std_ulogic_vector(to_unsigned(CONV_Output_Channels, 32)));
-		start_and_time("CONV2D", OP_CONV);
+		start_and_time("Conv2D", OP_CONV);
 
 		Wait For 100 ns;
 		Report "Simulation finished" Severity failure;
