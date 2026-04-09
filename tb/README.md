@@ -27,16 +27,21 @@ gtkwave tb_wb_npu.ghw
 **You can modify the commands to use relative file paths instead of creating a new folder for just the testbench**
 
 ### Worst case tests:
-- MaxPool and AvgPool: 100x100 tensor (10,000 elements. Completely utilize the input tensor)
-- ReLU and Sigmoid: 2500 words (10,000 elements. Completely utilize the input tensor)
-- Dense: 18 inputs and 2000 outputs. (18*2000 = 36,000. Completely utilize the weights and bias tensors (tensors B and C, respectively))
-- Conv2D: 13x13 input tensor, 50 input channels, and 80 output channels. (11x11*80 = 9680, nearly maxing out the result tensor. 80 filters with 50 3x3 kernels = 80 * 50 * 3 * 3 = 36,000, maxing out the weights tensor)
+- MaxPool and AvgPool: 100x100 tensor
+  - 10,000 elements. Completely utilize the input tensor
+- ReLU and Sigmoid: 2500 words
+  - 10,000 elements. Completely utilize the input tensor
+- Dense: 18 inputs and 2000 outputs.
+  - 18*2000 = 36,000. Completely utilize the weights and bias tensors (tensors B and C, respectively)
+- Conv2D: 13x13 input tensor, 50 input channels, and 80 output channels.
+  - 11x11*80 = 9680, nearly maxing out the result tensor
+  - 80 filters with 50 3x3 kernels = 80 * 50 * 3 * 3 = 36,000, maxing out the weights tensor
 
 ### Results:
-tb_wb_npu.vhd:187:25:@486392480ps:(report note): MAXPOOL latency (cycles) = 35004
-tb_wb_npu.vhd:187:25:@972708576ps:(report note): AVGPOOL latency (cycles) = 35004
-tb_wb_npu.vhd:187:25:@1111810784ps:(report note): RELU latency (cycles) = 10004
-tb_wb_npu.vhd:187:25:@1250912992ps:(report note): SIGMOID latency (cycles) = 10004
-tb_wb_npu.vhd:187:25:@2028918752ps:(report note): DENSE latency (cycles) = 56004
-tb_wb_npu.vhd:187:25:@116338019168ps:(report note): CONV2D latency (cycles) = 8230765
-tb_wb_npu.vhd:248:17:@116338119168ps:(report failure): Simulation finished
+- tb_wb_npu.vhd:187:25:@486392480ps:(report note): MAXPOOL latency (cycles) = 35004
+- tb_wb_npu.vhd:187:25:@972708576ps:(report note): AVGPOOL latency (cycles) = 35004
+- tb_wb_npu.vhd:187:25:@1111810784ps:(report note): RELU latency (cycles) = 10004
+- tb_wb_npu.vhd:187:25:@1250912992ps:(report note): SIGMOID latency (cycles) = 10004
+- tb_wb_npu.vhd:187:25:@2028918752ps:(report note): DENSE latency (cycles) = 56004
+- tb_wb_npu.vhd:187:25:@116338019168ps:(report note): CONV2D latency (cycles) = 8230765
+- tb_wb_npu.vhd:248:17:@116338119168ps:(report failure): Simulation finished
