@@ -1,8 +1,0 @@
-wb_npu_helper-dense.adb:4:06: (style) two spaces required [-gnatyc]
-wb_npu_helper-dense.adb:5:06: (style) two spaces required [-gnatyc]
-wb_npu_helper-dense.adb:17:07: warning: variable "W_Base" is never read and never assigned [-gnatwu]
-wb_npu_helper-dense.adb:18:07: warning: variable "B_Index" is never read and never assigned [-gnatwu]
-wb_npu_helper-dense.adb:20:32: (style) space required [-gnatyc]
-wb_npu_helper-dense.ads:3:06: (style) two spaces required [-gnatyc]
-wb_npu_helper-dense.ads:12:01: (style) trailing spaces not permitted [-gnatyb]
-wb_npu_helper-dense.ads:13:17: (style) space required [-gnatyt]

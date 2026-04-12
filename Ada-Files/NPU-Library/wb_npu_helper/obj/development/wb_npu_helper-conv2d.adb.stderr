@@ -1,4 +1,0 @@
-wb_npu_helper-conv2d.adb:5:01: (style) incorrect layout [-gnatyl]
-wb_npu_helper-conv2d.adb:23:80: (style) this line is too long [-gnatyM]
-wb_npu_helper-conv2d.adb:24:23: (style) trailing spaces not permitted [-gnatyb]
-wb_npu_helper-conv2d.adb:25:22: (style) trailing spaces not permitted [-gnatyb]

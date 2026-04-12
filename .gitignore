@@ -1,0 +1,10 @@
+# Alire: local dependency pins and cache (recreated by `alr update` / build)
+Ada-Files/**/alire/cache/
+
+# GNAT / gprbuild outputs for Wb_Npu_Helper (library sources stay tracked)
+Ada-Files/NPU-Library/wb_npu_helper/obj/
+Ada-Files/NPU-Library/wb_npu_helper/lib/
+
+# Same for the per-layer worst-case timing crate
+Ada-Files/NPU-Tests/npu_layer_worst_case_timings/obj/
+Ada-Files/NPU-Tests/npu_layer_worst_case_timings/bin/
